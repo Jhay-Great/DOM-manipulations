@@ -10,12 +10,9 @@
 <body>
     <!-- container -->
      <main class="container">
-        <!-- create list -->
-        <section class="create_todo_activity">
-            <button class="create_todo_activity_btn">Create to do</button>
-        </section>
 
-        <!-- to do list form -->
+
+        <!-- TO DO ACTIVITY FORM -->
         <!-- <section class="form_container">
             <form class="todo_activity_form">
                 <div class="todo_activity_title">
@@ -30,29 +27,60 @@
         </section> -->
         
         <!-- display list / read list -->
-         <section class="display_todo_activity">
-            <header>
-                <h2 class="todo_activity_header">Header</h2>
-            </header>
-            <section>
-                <div class="activity_container">
-                    <p class="todo_activity">Todo activity</p>
-                    <div class="todo_activity_duration">3hrs</div>
-                    <div class="todo_activity_edit"></div>
-                    <div class="todo_activity_completed"></div>
-                </div>
-                <div class="activity_container">
-                    <p class="todo_activity">Todo activity</p>
-                </div>
-                <div class="activity_container">
-                    <p class="todo_activity">Todo activity</p>
-                </div>
-            </section>
-         </section>
+         <div class="todo_activity_main_container">
+            <!-- ongoing activities -->
+             <section class="ongoing_todo_activities todo_activity_container">
+                <header>
+                    <h2 class="todo_activity_header">Ongoing</h2>
+                </header>
+                <section>
+                    <div class="activity_container">
+                        <p class="todo_activity">Todo activity</p>
+                        <div class="todo_activity_duration">3hrs</div>
+                        <div class="todo_activity_edit"></div>
+                        <div class="todo_activity_completed"></div>
+                    </div>
+                    <div class="activity_container">
+                        <p class="todo_activity">Todo activity</p>
+                    </div>
+                    <div class="activity_container">
+                        <p class="todo_activity">Todo activity</p>
+                    </div>
+                </section>
+             </section>
+             <!-- completed activities -->
+             <section class="completed_todo_activities todo_activity_container">
+                <header>
+                    <h2 class="todo_activity_header">Header</h2>
+                </header>
+                <section>
+                    <div class="activity_container">
+                        <p class="todo_activity">Todo activity</p>
+                        <div class="todo_activity_duration">3hrs</div>
+                        <div class="todo_activity_edit"></div>
+                        <div class="todo_activity_completed"></div>
+                    </div>
+                    <div class="activity_container">
+                        <p class="todo_activity">Todo activity</p>
+                    </div>
+                    <div class="activity_container">
+                        <p class="todo_activity">Todo activity</p>
+                    </div>
+                </section>
+             </section>
+
+         </div>
         <!-- update list -->
         <!-- delete list -->
         <!-- sort/filter list -->
         <!-- mark list as complete -->
      </main>
+    <!-- create list -->
+    <section class="create_todo_activity">
+        <button class="create_todo_activity_btn">
+            <img src="./assets/create_todo.svg" alt="">
+            <p>Create to do</p>
+        </button>
+    </section>
 </body>
 </html>

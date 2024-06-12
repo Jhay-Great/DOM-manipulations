@@ -10,6 +10,7 @@
 
 html {
     font-size: 16px;
+    font-family: sans-serif;
 }
 
 body {
@@ -18,6 +19,7 @@ body {
     height: 100dvh;
 
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background: linear-gradient(80deg, var(--primary-color-dark), #00fa, var(--primary-color))
@@ -25,6 +27,28 @@ body {
 main {
     width: 100%;
     height: 100%;
+}
+
+/* CREATING NEW TODO ACTIVITY STYLES */
+.create_todo_activity {
+    height: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.create_todo_activity_btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+}
+.create_todo_activity_btn img {
+    width: 40px;
+    aspect-ratio: 1;
+}
+.create_todo_activity_btn p {
+    font-size: 1.4rem;
+    padding-top: 0.3rem;
 }
 
 /* TODO ACTIVITY FORM STYLES */
@@ -39,7 +63,7 @@ main {
     top: 0;
     
     background: rgba(0, 0, 0, 0.37);
-    backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px) brightness(0.2);
 }
 
 .todo_activity_form {
@@ -73,6 +97,38 @@ form div input {
 }
 
 /* TODO ACTIVITY CONTAINER */
+.todo_activity_main_container {
+    padding-top: 5rem;
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+}
 
+/* TODO ACTIVITY CONTAINER */
+.todo_activity_container {
+    width: min(100%, 400px);
+    height: min(fit-content, 60dvh);
+
+    border: 1px solid;
+    border-radius: 5px;
+
+    background: var(--secondary-color);
+    overflow: hidden;
+}
+header,
+.activity_container {
+    padding: 0.5rem;
+    display: flex;
+}
+header {
+    background-color: var(--primary-color-dark);
+}
+
+
+
+/* GENERAL DEFAULT STYLES */
+button {
+    cursor: pointer;
+}
 
 
