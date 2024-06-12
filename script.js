@@ -8,8 +8,6 @@ const displayTodoFormBtn = document.querySelector('.create_todo_activity_btn')
 const addTodoBtn = document.querySelector('.create_activity');
 const todoForm = document.querySelector('.todo_activity_form');
 
-// 
-
 
 const todoActivitiesArray = [];
 
@@ -63,33 +61,7 @@ displayTodoFormBtn.addEventListener('click', function() {
         console.log(activity, todoActivitiesArray);
 
         todoForm.parentElement.remove();
-
-        
-        // // selecting all values from input fields
-        // const inputFields = document.querySelectorAll('input');
-        // // looping through the input fields
-        // const currentTodoActivity = {};
-        // // inputFields.forEach(field => {
-        // //     currentTodoActivity[field.name] = field.value;
-            
-        // // })
-        // todoActivitiesArray.push(currentTodoActivity);
-        // console.log(todoActivitiesArray, currentTodoActivity);
-
-        // // on successful submission remove else maintain
-        // e.currentTarget.parentElement.remove();
     })
-
-    
-    // const formParentContainer = document.querySelector('.form_container');
-    
-    // console.log(formParentContainer)
-
-    // formParentContainer.addEventListener('click', function() {
-    //     console.log('w')
-    // })
-
-    
 
 })
 
@@ -99,59 +71,5 @@ main.addEventListener('click', function(e) {
         e.target.remove();
         return;
     }
-
-    // todo form submission
-    // const todoForm = document.querySelector('.todo_activity_form');
-    // todoForm?.addEventListener('submit', function(e) {
-    //     e.preventDefault();
-
-    //     const title = todoForm.querySelector('input[name="title"]').value;
-    //     const description = todoForm.querySelector('input[name="description"]').value;
-    //     const time = todoForm.querySelector('input[name="time"]').value;
-    //     console.log(title, description, time);
-
-    //     const activity = {
-    //         title, description, time
-    //     }
-    //     console.log(activity);
-        
-    //     // // selecting all values from input fields
-    //     // const inputFields = document.querySelectorAll('input');
-    //     // // looping through the input fields
-    //     // const currentTodoActivity = {};
-    //     // // inputFields.forEach(field => {
-    //     // //     currentTodoActivity[field.name] = field.value;
-            
-    //     // // })
-    //     // todoActivitiesArray.push(currentTodoActivity);
-    //     // console.log(todoActivitiesArray, currentTodoActivity);
-
-    //     // // on successful submission remove else maintain
-    //     // e.currentTarget.parentElement.remove();
-    // })
 })
-    
-    
-    
-// addTodoBtn?.addEventListener('click', function(e) {
-//     console.log('s')
-//     e.preventDefault();
-    
-//     // selecting all values from input fields
-//     const inputFields = document.querySelectorAll('input');
-//     // looping through the input fields
-//     const currentTodoActivity = {};
-//     inputFields.forEach(field => {
-//         currentTodoActivity[field.name] = field.value;
-        
-//     })
-//     todoActivitiesArray.push(currentTodoActivity);
-//     console.log(todoActivitiesArray, currentTodoActivity);
-    
-//     // on successful submission remove else maintain
-//     e.currentTarget.parentElement.remove();
-// })
 
-
-// ONGOING TODO LISTS
-ongoingTodoActivitiesContainer
