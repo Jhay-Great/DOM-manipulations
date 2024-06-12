@@ -15,19 +15,19 @@ html {
 body {
     color: var(--text-color);
     width: 100%;
-    max-width: 1440px;
     height: 100dvh;
 
     display: flex;
     justify-content: center;
     align-items: center;
-    /* background: linear-gradient(80deg, var(--primary-color-dark), #00fa, var(--primary-color)) */
+    background: linear-gradient(80deg, var(--primary-color-dark), #00fa, var(--primary-color))
 }
 main {
     width: 100%;
     height: 100%;
 }
 
+/* TODO ACTIVITY FORM STYLES */
 .form_container {
     width: 100%;
     height: 100%;
@@ -35,9 +35,11 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    top: 0;
     
-    /* backdrop filter implementation DON'T FORGET */
-    backdrop-filter: blur(20px);
+    background: rgba(0, 0, 0, 0.37);
+    backdrop-filter: blur(2px);
 }
 
 .todo_activity_form {
@@ -63,11 +65,14 @@ form div input {
     width: 100%;
     height: 100%;
 }
-button {
+.todo_activity_form_activity {
     width: 50%;
     margin: 1rem auto;
     height: 50px;
     background: #ddd;
 }
+
+/* TODO ACTIVITY CONTAINER */
+
 
 

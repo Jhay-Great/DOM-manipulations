@@ -2,11 +2,7 @@
 const addTodoBtn = document.querySelector('.create_activity');
 const todoForm = document.querySelector('.todo_activity_form');
 
-/**create todo functionality
- * when create button is click
- * add todo activity in todo container
- * display a custom alert popup as 'activity created' if successful and 'activity not created' if failed
- */
+
 const todoActivitiesArray = [];
 
 // setting a min date
