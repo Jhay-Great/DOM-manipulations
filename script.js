@@ -52,15 +52,29 @@ displayTodoFormBtn.addEventListener('click', function() {
         const title = todoForm.querySelector('input[name="title"]').value;
         const description = todoForm.querySelector('input[name="description"]').value;
         const time = todoForm.querySelector('input[name="time"]').value;
-        console.log(title, description, time);
 
         const activity = {
-            title, description, time
+            title, 
+            description, 
+            time,
+            completed: false,
         }
         todoActivitiesArray.push(activity);
-        console.log(activity, todoActivitiesArray);
-
+        
         todoForm.parentElement.remove();
+
+        const html = 
+        `
+            <div class="activity_container">
+                <p class="todo_activity">${activity.title}</p>
+                <div class="todo_activity_duration">${activity.time}</div>
+                <div class="todo_activity_edit"></div>
+                <div class="todo_activity_completed"></div>
+            </div>
+        `;
+
+
+        ongoingTodoActivitiesContainer.insertAdjacentHTML('beforeend', html);        
     })
 
 })
@@ -73,3 +87,6 @@ main.addEventListener('click', function(e) {
     }
 })
 
+
+// display todo 
+// console.log(ongoingTodoActivitiesContainer.querySelectorAll('section > div'))
