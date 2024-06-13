@@ -182,28 +182,61 @@ main.addEventListener('click', function(e) {
 
     // sorting functionality
     if (e.currentTarget.querySelector('.sorting-btn')) {
-        e.currentTarget.querySelector('.sort_menu').classList.toggle('hidden');
+        e.target.closest('.sorting-btn')?.nextElementSibling.classList.toggle('hidden');
         e.target.closest('.sorting-btn')?.classList.toggle('active');
 
+        // sortElements(todoActivitiesArray, 'time').forEach(element => {
+        //     main.querySelector('.activity_container').remove()
+
+        //     const html = 
+        //     `
+        //         <div class="activity_container">
+        //             <div class="display_flex">
+        //                 <p class="todo_activity_title">${element.title}</p>
+        //                 <p class="todo_activity_duration">${element.time}</p>
+        //             </div>
+        //             <div class="display_flex">
+        //                 <button class="todo_activity_completed">
+        //                     <img src="./assets/check.svg" alt="check svg icon">
+        //                 </button>
+        //                 <button class="todo_activity_delete">
+        //                     <img src="./assets/delete.svg" alt="delete svg icon">
+        //                 </button>
+        //                 <button class="todo_activity_edit">
+        //                     <img src="./assets/edit.svg" alt="delete svg icon">
+        //                 </button>
+        //             </div>
+        //             <p class="todo_activity_description hidden">${element.description}</p>
+        //         </div>
+        //     `;
+        //     renderHTML(ongoingTodoActivitiesContainer, 'beforeend', html);
+        // })
         if (e.target.classList.contains('ascending-order')) {
             console.log('ew')
             sortElements(todoActivitiesArray, 'time').forEach(element => {
                 main.querySelector('.activity_container').remove()
                 
                 const html = 
-                `
-                    <div class="activity_container">
+            `
+                <div class="activity_container">
+                    <div class="display_flex">
                         <p class="todo_activity_title">${element.title}</p>
                         <p class="todo_activity_duration">${element.time}</p>
+                    </div>
+                    <div class="display_flex">
                         <button class="todo_activity_completed">
                             <img src="./assets/check.svg" alt="check svg icon">
                         </button>
                         <button class="todo_activity_delete">
                             <img src="./assets/delete.svg" alt="delete svg icon">
                         </button>
-                        <button class="todo_activity_edit"></button>
+                        <button class="todo_activity_edit">
+                            <img src="./assets/edit.svg" alt="delete svg icon">
+                        </button>
                     </div>
-                `;
+                    <p class="todo_activity_description hidden">${element.description}</p>
+                </div>
+            `;
                 renderHTML(ongoingTodoActivitiesContainer, 'beforeend', html);
                 })
                 
