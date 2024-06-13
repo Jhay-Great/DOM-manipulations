@@ -18,16 +18,18 @@
                 <header>
                     <h2 class="todo_activity_header">Ongoing</h2>
                 </header>
-                <p class="hidden default_paragraph">No ongoing activity currently. Create an activity</p>
+                <p class="hidden ongoing_default_paragraph">No ongoing activity currently. Create an activity</p>
                 <section>
                     <div class="activity_container">
-                        <div class="todo_activity_completed"></div>
                         <p class="todo_activity_title">Todo activity</p>
                         <div class="todo_activity_duration">3hrs</div>
-                        <button class="todo_activity_edit"></button>
+                        <button class="todo_activity_completed">
+                            <img src="./assets/check.svg" alt="checked svg icon">
+                        </button>
                         <button class="todo_activity_delete">
                             <img src="./assets/delete.svg" alt="delete svg icon">
                         </button>
+                        <button class="todo_activity_edit"></button>
                     </div>
                     <div class="activity_container">
                         <p class="todo_activity_title">Todo activity</p>
@@ -43,24 +45,14 @@
                     </div>
                 </section>
              </section>
+
              <!-- completed activities -->
              <section class="completed_todo_activities todo_activity_container">
                 <header>
-                    <h2 class="todo_activity_header">Header</h2>
+                    <h2 class="todo_activity_header">Completed</h2>
                 </header>
                 <section>
-                    <div class="activity_container">
-                        <p class="todo_activity">Todo activity</p>
-                        <div class="todo_activity_duration">3hrs</div>
-                        <div class="todo_activity_edit"></div>
-                        <div class="todo_activity_completed"></div>
-                    </div>
-                    <div class="activity_container">
-                        <p class="todo_activity">Todo activity</p>
-                    </div>
-                    <div class="activity_container">
-                        <p class="todo_activity">Todo activity</p>
-                    </div>
+                    <p class="hidden completed_default_paragraph">No completed activity yet!!!</p>
                 </section>
              </section>
 

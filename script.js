@@ -66,17 +66,20 @@ displayTodoFormBtn.addEventListener('click', function() {
         const html = 
         `
             <div class="activity_container">
-                <div class="todo_activity_completed"></div>
                 <p class="todo_activity_title">${activity.title}</p>
                 <div class="todo_activity_duration">${activity.time}</div>
-                <button class="todo_activity_edit"></button>
+                <button class="todo_activity_completed">
+                    <img src="./assets/check.svg" alt="check svg icon">
+                </button>
                 <button class="todo_activity_delete">
                     <img src="./assets/delete.svg" alt="delete svg icon">
                 </button>
+                <button class="todo_activity_edit"></button>
             </div>
         `;
 
 
+        document.querySelector('.ongoing_default_paragraph').classList.add('hidden');
         ongoingTodoActivitiesContainer.insertAdjacentHTML('beforeend', html);        
     })
 
@@ -89,8 +92,9 @@ main.addEventListener('click', function(e) {
         return;
     }
 
+    const parent = e.target.closest('.activity_container');
+    // delete functionality
     if (e.target.closest('.todo_activity_delete')) {
-        const parent = e.target.closest('.activity_container');
         const word = parent.querySelector('.todo_activity_title').textContent;
 
         // removing element from the array
@@ -98,7 +102,36 @@ main.addEventListener('click', function(e) {
         todoActivitiesArray = [...arr];
 
         // delete element from the DOM
+        console.log(parent.closest('section').children) 
+        if (parent.closest('section').children.length < 2) {
+            document.querySelector('.ongoing_default_paragraph').classList.remove('hidden');
+        }
+
         parent.remove();
+        return;
+    }
+
+    // completed status functionality
+    if (e.target.closest('.todo_activity_completed')) {
+        const word = parent.querySelector('.todo_activity_title').textContent;
+
+        const html = 
+        `
+            <div class="activity_container">
+                <p class="todo_activity_title">${word}</p>
+                <button class="todo_activity_completed">
+                    <img src="./assets/check.svg" alt="check svg icon">
+                </button>
+                <button class="todo_activity_delete">
+                    <img src="./assets/delete.svg" alt="delete svg icon">
+                </button>
+                <button class="todo_activity_edit"></button>
+            </div>
+        `;
+        document.querySelector('.completed_default_paragraph').classList.add('hidden');
+        document.querySelector('.completed_todo_activities').insertAdjacentHTML('beforeend', html);
+
+        e.target.closest('.activity_container').remove();
     }
 
 })
@@ -109,3 +142,11 @@ main.addEventListener('click', function(e) {
 
 
 // on no ongoing activity
+if (todoActivitiesArray.length === 0) {
+    document.querySelector('.ongoing_default_paragraph').classList.remove('hidden');
+}
+
+// completed activity
+if (todoActivitiesArray.some(element => element.completed === true) === false) {
+    document.querySelector('.completed_default_paragraph').classList.remove('hidden');
+}

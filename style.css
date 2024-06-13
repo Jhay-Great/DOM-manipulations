@@ -124,8 +124,11 @@ header,
 header {
     background-color: var(--primary-color-dark);
 }
-.todo_activity_delete {
+.activity_container > button {
     width: 20px;
+    border: none;
+    outline: none;
+    background-color: transparent;
 }
 
 
@@ -138,6 +141,9 @@ header {
 /* GENERAL DEFAULT STYLES */
 button {
     cursor: pointer;
+}
+img {
+    width: 100%;
 }
 
 
