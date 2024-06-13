@@ -105,9 +105,11 @@ form div input {
 }
 
 /* TODO ACTIVITY CONTAINER */
-.todo_activity_container {
+.ongoing_todo_activities,
+.completed_todo_activities {
     width: min(100%, 400px);
-    height: min(fit-content, 60dvh);
+    /* height: min(fit-content, 60dvh); */
+    height: fit-content;
 
     border: 1px solid;
     border-radius: 5px;

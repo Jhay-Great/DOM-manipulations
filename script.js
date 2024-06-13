@@ -102,7 +102,6 @@ main.addEventListener('click', function(e) {
         todoActivitiesArray = [...arr];
 
         // delete element from the DOM
-        console.log(parent.closest('section').children) 
         if (parent.closest('section').children.length < 2) {
             document.querySelector('.ongoing_default_paragraph').classList.remove('hidden');
         }
@@ -131,6 +130,10 @@ main.addEventListener('click', function(e) {
         document.querySelector('.completed_default_paragraph').classList.add('hidden');
         document.querySelector('.completed_todo_activities').insertAdjacentHTML('beforeend', html);
 
+        if (parent.closest('section').children.length < 2) {
+            document.querySelector('.ongoing_default_paragraph').classList.remove('hidden');
+        }
+        
         e.target.closest('.activity_container').remove();
     }
 
