@@ -64,6 +64,7 @@ main {
     
     background: rgba(0, 0, 0, 0.37);
     backdrop-filter: blur(2px) brightness(0.2);
+    z-index: 10;
 }
 
 .todo_activity_form {
@@ -115,29 +116,61 @@ form div input {
     border-radius: 5px;
 
     background: var(--secondary-color);
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 header,
 .activity_container {
     padding: 0.5rem;
     display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 header {
     background-color: var(--primary-color-dark);
+    position: relative;
 }
-.activity_container > button {
-    width: 20px;
+.activity_container button,
+header > button {
+    width: 25px;
     border: none;
     outline: none;
     background-color: transparent;
 }
+.sort_menu {
+    position: absolute;
+    right: -70px;
+    bottom: -66px;
+    border: 1px solid ;
+    border-radius: 5px;
+    padding: .25rem;
+    background: var(--primary-color-dark)
+    
+    /* z-index: 10; */
+}
+.sort_menu p {
+    padding: .2rem;
+}
+.sort_menu p:first-child {
+    margin-bottom: .5rem;
+
+}
+/* .ongoing_todo_activities {
+    position: relative;
+} */
 
 
 
 /* SPECIAL CLASSES */
 .hidden {
     display: none;
+}
+.active {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+.display_flex {
+    display: flex;
+    gap: 5px;
 }
 
 /* GENERAL DEFAULT STYLES */
