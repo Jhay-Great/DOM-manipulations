@@ -9,7 +9,7 @@ const addTodoBtn = document.querySelector('.create_activity');
 const todoForm = document.querySelector('.todo_activity_form');
 
 
-const todoActivitiesArray = [];
+let todoActivitiesArray = [];
 
 // setting a min date
 /**setting min date
@@ -55,7 +55,7 @@ displayTodoFormBtn.addEventListener('click', function() {
 
         const activity = {
             title, 
-            description, 
+            description,
             time,
             completed: false,
         }
@@ -66,10 +66,13 @@ displayTodoFormBtn.addEventListener('click', function() {
         const html = 
         `
             <div class="activity_container">
-                <p class="todo_activity">${activity.title}</p>
-                <div class="todo_activity_duration">${activity.time}</div>
-                <div class="todo_activity_edit"></div>
                 <div class="todo_activity_completed"></div>
+                <p class="todo_activity_title">${activity.title}</p>
+                <div class="todo_activity_duration">${activity.time}</div>
+                <button class="todo_activity_edit"></button>
+                <button class="todo_activity_delete">
+                    <img src="./assets/delete.svg" alt="delete svg icon">
+                </button>
             </div>
         `;
 
@@ -85,8 +88,24 @@ main.addEventListener('click', function(e) {
         e.target.remove();
         return;
     }
+
+    if (e.target.closest('.todo_activity_delete')) {
+        const parent = e.target.closest('.activity_container');
+        const word = parent.querySelector('.todo_activity_title').textContent;
+
+        // removing element from the array
+        const arr = todoActivitiesArray.filter(activity => activity.title !== word);
+        todoActivitiesArray = [...arr];
+
+        // delete element from the DOM
+        parent.remove();
+    }
+
 })
 
 
 // display todo 
 // console.log(ongoingTodoActivitiesContainer.querySelectorAll('section > div'))
+
+
+// on no ongoing activity

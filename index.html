@@ -10,21 +10,6 @@
 <body>
     <!-- container -->
      <main class="container">
-
-
-        <!-- TO DO ACTIVITY FORM -->
-        <!-- <section class="form_container">
-            <form class="todo_activity_form">
-                <div class="todo_activity_title">
-                    <input type="text" name="title" placeholder="Enter your activity title">
-                </div>
-                <div class="todo_activity_description">
-                    <input type="text" name="description" placeholder="Enter a description for your activity">
-                </div>
-                <input type="datetime-local" name="time" id="todo_activity_time-elapsed">
-                <button type="submit" class="todo_activity_form_activity">Create activity</button>
-            </form>
-        </section> -->
         
         <!-- display list / read list -->
          <div class="todo_activity_main_container">
@@ -33,18 +18,28 @@
                 <header>
                     <h2 class="todo_activity_header">Ongoing</h2>
                 </header>
+                <p class="hidden default_paragraph">No ongoing activity currently. Create an activity</p>
                 <section>
                     <div class="activity_container">
-                        <p class="todo_activity">Todo activity</p>
-                        <div class="todo_activity_duration">3hrs</div>
-                        <div class="todo_activity_edit"></div>
                         <div class="todo_activity_completed"></div>
+                        <p class="todo_activity_title">Todo activity</p>
+                        <div class="todo_activity_duration">3hrs</div>
+                        <button class="todo_activity_edit"></button>
+                        <button class="todo_activity_delete">
+                            <img src="./assets/delete.svg" alt="delete svg icon">
+                        </button>
                     </div>
                     <div class="activity_container">
-                        <p class="todo_activity">Todo activity</p>
+                        <p class="todo_activity_title">Todo activity</p>
+                        <button class="todo_activity_delete">
+                            <img src="./assets/delete.svg" alt="delete svg icon">
+                        </button>
                     </div>
                     <div class="activity_container">
-                        <p class="todo_activity">Todo activity</p>
+                        <p class="todo_activity_title">Todo activity</p>
+                        <button class="todo_activity_delete">
+                            <img src="./assets/delete.svg" alt="delete svg icon">
+                        </button>
                     </div>
                 </section>
              </section>

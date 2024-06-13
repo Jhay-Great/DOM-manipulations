@@ -119,12 +119,21 @@ header,
 .activity_container {
     padding: 0.5rem;
     display: flex;
+    align-items: center;
 }
 header {
     background-color: var(--primary-color-dark);
 }
+.todo_activity_delete {
+    width: 20px;
+}
 
 
+
+/* SPECIAL CLASSES */
+.hidden {
+    display: none;
+}
 
 /* GENERAL DEFAULT STYLES */
 button {
