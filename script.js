@@ -152,11 +152,19 @@ main.addEventListener('click', function(e) {
 
     // update / edit existing todo activity
     if (e.target.closest('.todo_activity_edit')) {
-        console.log(e.target)
 
-        const title = parent.querySelector('.todo_activity_title').textContent;
-        const description = parent.querySelector('.todo_activity_title').textContent;
-        const time = parent.querySelector('.todo_activity_duration').textContent;
+        // getting todo id
+        const id = e.target.closest('.activity_container').dataset;
+        
+        // find element by id in array
+        const todoActivity = todoActivitiesArray.find(element => element.id);
+        console.log(todoActivity);
+
+        const {title, description, time} = todoActivity;
+
+        // const title = parent.querySelector('.todo_activity_title').textContent;
+        // const description = parent.querySelector('.todo_activity_title').textContent;
+        // const time = parent.querySelector('.todo_activity_duration').textContent;
 
         const date = convertDaysToDate(time);
         console.log(date);
@@ -170,7 +178,7 @@ main.addEventListener('click', function(e) {
                     <input type="text" name="title" value="${title}" placeholder="Enter your activity title">
                 </div>
                 <div class="todo_activity_description">
-                    <input type="text" name="description" placeholder="Enter a description for your activity">
+                    <input type="text" name="description" value="${description}" placeholder="Enter a description for your activity">
                 </div>
                 <input type="datetime-local" name="time" value="${date}" id="todo_activity_time-elapsed">
                 <button class="todo_activity_form_activity">Create activity</button>
@@ -316,23 +324,38 @@ const sortElements = function(array, property, ascending = true) {
 }
 
 // generating id
-const generateId = function() {
-    
-    const timestamps = Date.now();
+/**approach
+ * using timestamp
+ * save the previous timestamp in a variable
+ * if the previous timestamp is the same as the current timestamp
+ * generate a new one by adding 1 to the previous timestamp
+ * 
+ * improved functionality by using closures and IIFE
+ */
+const generateId = (function() {
+    let previousTimestamp;
 
-    let format = timestamps + '0';
-    console.log(+format)
-    
-    if (format) {
+    return function() {
+        const timestamps = Date.now();
+        let format = Number(timestamps + '0');
         
-        const id = +format + 1;
-        console.log(id);
-    }
+        if (previousTimestamp === format) {
+            
+            const id = format + 1;
+            // console.log(previousTimestamp, 'id: ', id);
+            return id;
+        }
+            
+        previousTimestamp = format;
+        return format;
 
-    return timestamps;
+    }
+    
 
     // console.log(format)
-}
-// generateId();
+}) ();
+// console.log('login genId: ', generateId()); 
+// console.log('login genId: ', generateId()); 
+// console.log('login genId: ', generateId());   
 
         
