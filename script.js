@@ -57,6 +57,7 @@ displayTodoFormBtn.addEventListener('click', function() {
         const dueDate = calcDueDate(time);
 
         const activity = {
+            id: generateId(),
             title, 
             description,
             time: dueDate,
@@ -68,7 +69,7 @@ displayTodoFormBtn.addEventListener('click', function() {
 
         const html = 
         `
-            <div class="activity_container">
+            <div class="activity_container" data-key=${activity.id}>
                 <div class="display_flex">
                     <p class="todo_activity_title">${activity.title}</p>
                     <p class="todo_activity_duration">${activity.time}</p>
@@ -151,6 +152,7 @@ main.addEventListener('click', function(e) {
 
     // update / edit existing todo activity
     if (e.target.closest('.todo_activity_edit')) {
+        console.log(e.target)
 
         const title = parent.querySelector('.todo_activity_title').textContent;
         const description = parent.querySelector('.todo_activity_title').textContent;
@@ -313,5 +315,24 @@ const sortElements = function(array, property, ascending = true) {
     });
 }
 
+// generating id
+const generateId = function() {
+    
+    const timestamps = Date.now();
+
+    let format = timestamps + '0';
+    console.log(+format)
+    
+    if (format) {
+        
+        const id = +format + 1;
+        console.log(id);
+    }
+
+    return timestamps;
+
+    // console.log(format)
+}
+// generateId();
 
         
