@@ -154,20 +154,16 @@ main.addEventListener('click', function(e) {
     if (e.target.closest('.todo_activity_edit')) {
 
         // getting todo id
-        const id = e.target.closest('.activity_container').dataset;
+        const todoId = e.target.closest('.activity_container').dataset.key;
+        
         
         // find element by id in array
-        const todoActivity = todoActivitiesArray.find(element => element.id);
-        console.log(todoActivity);
+        const todoActivity = todoActivitiesArray.find(element => element.id === +todoId);
+        
 
         const {title, description, time} = todoActivity;
-
-        // const title = parent.querySelector('.todo_activity_title').textContent;
-        // const description = parent.querySelector('.todo_activity_title').textContent;
-        // const time = parent.querySelector('.todo_activity_duration').textContent;
-
+        
         const date = convertDaysToDate(time);
-        console.log(date);
 
 
         const htmlMarkup = 
