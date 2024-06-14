@@ -151,13 +151,13 @@ main.addEventListener('click', function(e) {
 
     // update / edit existing todo activity
     if (e.target.closest('.todo_activity_edit')) {
-        console.log('editing...');
 
         const title = parent.querySelector('.todo_activity_title').textContent;
         const description = parent.querySelector('.todo_activity_title').textContent;
         const time = parent.querySelector('.todo_activity_duration').textContent;
 
-        const duration = Date.parse(time);
+        const date = convertDaysToDate(time);
+        console.log(date);
 
 
         const htmlMarkup = 
@@ -170,7 +170,7 @@ main.addEventListener('click', function(e) {
                 <div class="todo_activity_description">
                     <input type="text" name="description" placeholder="Enter a description for your activity">
                 </div>
-                <input type="datetime-local" name="time" value="${time}" id="todo_activity_time-elapsed">
+                <input type="datetime-local" name="time" value="${date}" id="todo_activity_time-elapsed">
                 <button class="todo_activity_form_activity">Create activity</button>
             </form>
         </section>
@@ -185,34 +185,8 @@ main.addEventListener('click', function(e) {
         e.target.closest('.sorting-btn')?.nextElementSibling.classList.toggle('hidden');
         e.target.closest('.sorting-btn')?.classList.toggle('active');
 
-        // sortElements(todoActivitiesArray, 'time').forEach(element => {
-        //     main.querySelector('.activity_container').remove()
-
-        //     const html = 
-        //     `
-        //         <div class="activity_container">
-        //             <div class="display_flex">
-        //                 <p class="todo_activity_title">${element.title}</p>
-        //                 <p class="todo_activity_duration">${element.time}</p>
-        //             </div>
-        //             <div class="display_flex">
-        //                 <button class="todo_activity_completed">
-        //                     <img src="./assets/check.svg" alt="check svg icon">
-        //                 </button>
-        //                 <button class="todo_activity_delete">
-        //                     <img src="./assets/delete.svg" alt="delete svg icon">
-        //                 </button>
-        //                 <button class="todo_activity_edit">
-        //                     <img src="./assets/edit.svg" alt="delete svg icon">
-        //                 </button>
-        //             </div>
-        //             <p class="todo_activity_description hidden">${element.description}</p>
-        //         </div>
-        //     `;
-        //     renderHTML(ongoingTodoActivitiesContainer, 'beforeend', html);
-        // })
+        
         if (e.target.classList.contains('ascending-order')) {
-            console.log('ew')
             sortElements(todoActivitiesArray, 'time').forEach(element => {
                 main.querySelector('.activity_container').remove()
                 
@@ -269,6 +243,7 @@ const calcDueDate = function (time) {
     const normalizeToday = normalizeToMidnight(today);
     
     const futureDate = new Date(time);
+    console.log(futureDate)
     const normalizedFutureDate = normalizeToMidnight(futureDate);
     
     const timeDifference = normalizedFutureDate - normalizeToday;
@@ -276,6 +251,42 @@ const calcDueDate = function (time) {
     return Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
 
 }
+
+const convertDaysToDate = function(time) {
+    const today = new Date();
+    const futureDate = new Date(today.getTime() + time * 24 * 60 * 60 * 1000);
+    // return (futureDate.getTime(), futureDate.getFullYear(), futureDate.getMonth());
+
+    const year = futureDate.getFullYear();
+    const month = futureDate.getMonth().toString().padStart(2, 0);
+    const day = futureDate.getDate().toString().padStart(2, 0);
+    const hour = futureDate.getHours().toString().padStart(2, 0);
+    const minutes = futureDate.getMinutes().toString().padStart(2, 0);
+
+    return `${year}-${month}-${day}T${hour}:${minutes}`;
+    console.log(format);
+    
+    
+    const dateTime = `${futureDate.getFullYear()}-${futureDate.getMonth()}-${futureDate.getDate()}T${futureDate.getHours()}:${futureDate.getMinutes()}`;
+    // console.log(dateTime);
+    return dateTime;
+    // return {
+    //     day: futureDate.getDate(),
+    //     month: futureDate.getMonth() + 1,
+    //     year: futureDate.getFullYear(),
+    //     hour: futureDate.getHours(),
+    //     minutes: futureDate.getMinutes()
+    // }
+};
+
+// he specified value "1" does not conform to the required format.  The format is "yyyy-MM-ddThh:mm" followed by optional ":ss" or ":ss.SSS".
+
+// console.log(new Date(2 * (1000 * 60 * 60 * 24)))
+console.log(convertDaysToDate(2));
+
+
+
+
 // adding dynamic markup to the DOM
 const renderHTML = function(container, position, html) {
     container.insertAdjacentHTML(position, html);
@@ -284,22 +295,23 @@ const renderHTML = function(container, position, html) {
 
 
 const sortElements = function(array, property, ascending = true) {
-    console.log(property);
-            return [...array].sort((a, b) => {
-                let aValue = a[property];
-                let bValue = b[property];
+    return [...array].sort((a, b) => {
+        let aValue = a[property];
+        let bValue = b[property];
 
-                // Convert to numbers if property is 'time'
-                if (property === 'time') {
-                    aValue = Number(aValue);
-                    bValue = Number(bValue);
-                }
-
-                if (ascending) {
-                    return (aValue > bValue) ? 1 : -1;
-                } else {
-                    return (aValue < bValue) ? 1 : -1;
-                }
-            });
+        // Convert to numbers if property is 'time'
+        if (property === 'time') {
+            aValue = Number(aValue);
+            bValue = Number(bValue);
         }
+
+        if (ascending) {
+            return (aValue > bValue) ? 1 : -1;
+        } else {
+            return (aValue < bValue) ? 1 : -1;
+        }
+    });
+}
+
+
         
