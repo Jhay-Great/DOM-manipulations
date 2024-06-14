@@ -39,7 +39,7 @@ displayTodoFormBtn.addEventListener('click', function() {
                     <input type="text" name="description" placeholder="Enter a description for your activity">
                 </div>
                 <input type="datetime-local" name="time" id="todo_activity_time-elapsed">
-                <button class="todo_activity_form_activity">Create activity</button>
+                <button class="form_activity_create-btn">Create activity</button>
             </form>
         </section>
     `;
@@ -156,13 +156,10 @@ main.addEventListener('click', function(e) {
         // getting todo id
         const todoId = e.target.closest('.activity_container').dataset.key;
         
-        
         // find element by id in array
         const todoActivity = todoActivitiesArray.find(element => element.id === +todoId);
-        
 
         const {title, description, time} = todoActivity;
-        
         const date = convertDaysToDate(time);
 
 
@@ -177,7 +174,7 @@ main.addEventListener('click', function(e) {
                     <input type="text" name="description" value="${description}" placeholder="Enter a description for your activity">
                 </div>
                 <input type="datetime-local" name="time" value="${date}" id="todo_activity_time-elapsed">
-                <button class="todo_activity_form_activity">Create activity</button>
+                <button class="form_update-btn">Update activity</button>
             </form>
         </section>
     `;

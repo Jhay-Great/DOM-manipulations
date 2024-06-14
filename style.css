@@ -90,7 +90,8 @@ form div input {
     width: 100%;
     height: 100%;
 }
-.todo_activity_form_activity {
+.form_activity_create-btn,
+.form_update-btn {
     width: 50%;
     margin: 1rem auto;
     height: 50px;
