@@ -29,22 +29,6 @@ let todoActivityId;
 // displaying todo form to start creating a todo activity
 displayTodoFormBtn.addEventListener('click', function() {
     // display form
-    // const htmlMarkup = 
-    // `
-    //     <section class="form_container">
-    //         <form class="todo_activity_form">
-    //             <div class="todo_activity_title">
-    //                 <input type="text" name="title" placeholder="Enter your activity title">
-    //             </div>
-    //             <div class="todo_activity_description">
-    //                 <input type="text" name="description" placeholder="Enter a description for your activity">
-    //             </div>
-    //             <input type="datetime-local" name="time" id="todo_activity_time-elapsed">
-    //             <button class="form_activity_create-btn">Create activity</button>
-    //         </form>
-    //     </section>
-    // `;
-    // renderHTML(main, 'afterbegin', htmlMarkup);
     renderHTML(main, 'afterbegin', formMarkup());
 
     const todoForm = document.querySelector('.todo_activity_form');
@@ -69,31 +53,7 @@ displayTodoFormBtn.addEventListener('click', function() {
         
         todoForm.parentElement.remove();
 
-        // const html = 
-        // `
-        //     <div class="activity_container" data-key=${activity.id}>
-        //         <div class="display_flex">
-        //             <p class="todo_activity_title">${activity.title}</p>
-        //             <p class="todo_activity_duration">${activity.time}</p>
-        //         </div>
-        //         <div class="display_flex">
-        //             <button class="todo_activity_completed">
-        //                 <img src="./assets/check.svg" alt="check svg icon">
-        //             </button>
-        //             <button class="todo_activity_delete">
-        //                 <img src="./assets/delete.svg" alt="delete svg icon">
-        //             </button>
-        //             <button class="todo_activity_edit">
-        //                 <img src="./assets/edit.svg" alt="delete svg icon">
-        //             </button>
-        //         </div>
-        //         <p class="todo_activity_description hidden">${activity.description}</p>
-        //     </div>
-        // `;
-    
-
         document.querySelector('.ongoing_default_paragraph').classList.add('hidden');
-        // renderHTML(ongoingTodoActivitiesContainer, 'beforeend', html)
         renderHTML(ongoingTodoActivitiesContainer, 'beforeend', activityMarkup(activity))
     })
 
@@ -165,25 +125,8 @@ main.addEventListener('click', function(e) {
 
         const {title, description, time} = todoActivity;
         const date = convertDaysToDate(time);
-
-
-        // const htmlMarkup = 
-    // `
-    //     <section class="form_container">
-    //         <form class="todo_activity_form">
-    //             <div class="todo_activity_title">
-    //                 <input type="text" name="title" value="${title}" placeholder="Enter your activity title">
-    //             </div>
-    //             <div class="todo_activity_description">
-    //                 <input type="text" name="description" value="${description}" placeholder="Enter a description for your activity">
-    //             </div>
-    //             <input type="datetime-local" name="time" value="${date}" id="todo_activity_time-elapsed">
-    //             <button class="form_update-btn">Update activity</button>
-    //         </form>
-    //     </section>
-    // `;
+        
     renderHTML(main, 'afterbegin', formMarkup(title, description, date, true));
-    // renderHTML(main, 'afterbegin', htmlMarkup);
 
     
     
@@ -207,7 +150,6 @@ main.addEventListener('click', function(e) {
         // document.querySelector('.activity_duration').textContent = description.value;
         document.querySelector('.activity_description').textContent = description.value;
 
-        // console.log(<p class="todo_activity_title">gaming</p>)
         console.log(document.querySelector('.activity_title'), document.querySelector('.todo_activity_duration'))
 
         // UPDATING THE ARRAY DS
@@ -234,28 +176,6 @@ main.addEventListener('click', function(e) {
             sortElements(todoActivitiesArray, 'time').forEach(element => {
                 main.querySelector('.activity_container').remove()
                 
-                const html = 
-            `
-                <div class="activity_container">
-                    <div class="display_flex">
-                        <p class="todo_activity_title">${element.title}</p>
-                        <p class="todo_activity_duration">${element.time}</p>
-                    </div>
-                    <div class="display_flex">
-                        <button class="todo_activity_completed">
-                            <img src="./assets/check.svg" alt="check svg icon">
-                        </button>
-                        <button class="todo_activity_delete">
-                            <img src="./assets/delete.svg" alt="delete svg icon">
-                        </button>
-                        <button class="todo_activity_edit">
-                            <img src="./assets/edit.svg" alt="delete svg icon">
-                        </button>
-                    </div>
-                    <p class="todo_activity_description hidden">${element.description}</p>
-                </div>
-            `;
-            // renderHTML(ongoingTodoActivitiesContainer, 'beforeend', html);
                 renderHTML(ongoingTodoActivitiesContainer, 'beforeend', activityMarkup(element));
                 })
                 
@@ -359,14 +279,6 @@ const sortElements = function(array, property, ascending = true) {
 }
 
 // generating id
-/**approach
- * using timestamp
- * save the previous timestamp in a variable
- * if the previous timestamp is the same as the current timestamp
- * generate a new one by adding 1 to the previous timestamp
- * 
- * improved functionality by using closures and IIFE
- */
 const generateId = (function() {
     let previousTimestamp;
 
@@ -377,7 +289,6 @@ const generateId = (function() {
         if (previousTimestamp === format) {
             
             const id = format + 1;
-            // console.log(previousTimestamp, 'id: ', id);
             return id;
         }
             
@@ -385,13 +296,7 @@ const generateId = (function() {
         return format;
 
     }
-    
-
-    // console.log(format)
 }) ();
-// console.log('login genId: ', generateId()); 
-// console.log('login genId: ', generateId()); 
-// console.log('login genId: ', generateId()); 
 
 
 // Todo Activity markup
