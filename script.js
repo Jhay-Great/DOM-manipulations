@@ -152,6 +152,7 @@ main.addEventListener('click', function(e) {
 
     // update / edit existing todo activity
     if (e.target.closest('.todo_activity_edit')) {
+        e.preventDefault();
 
         // getting todo id
         const todoId = e.target.closest('.activity_container').dataset.key;
@@ -180,7 +181,15 @@ main.addEventListener('click', function(e) {
     `;
     renderHTML(main, 'afterbegin', htmlMarkup);
 
+    
+    
+    }
+
+    console.log(e.target);
+    if (e.target.classList.contains('form_update-btn')) {
+        e.preventDefault();
         
+        e.target.closest('.form_container').remove();
     }
 
     // sorting functionality
@@ -285,7 +294,7 @@ const convertDaysToDate = function(time) {
 // he specified value "1" does not conform to the required format.  The format is "yyyy-MM-ddThh:mm" followed by optional ":ss" or ":ss.SSS".
 
 // console.log(new Date(2 * (1000 * 60 * 60 * 24)))
-console.log(convertDaysToDate(2));
+// console.log(convertDaysToDate(2));
 
 
 
