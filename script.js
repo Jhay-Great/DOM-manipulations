@@ -70,47 +70,30 @@ main.addEventListener('click', function(e) {
     const parent = e.target.closest('.activity_container');
     // delete functionality
     if (e.target.closest('.todo_activity_delete')) {
-        const word = parent.querySelector('.activity_title').textContent;
+        displayDefaultText(parent, document.querySelector('.ongoing_default_paragraph'));
 
-        // removing element from the array
-        const filteredTodoActivity = todoActivitiesArray.filter(activity => activity.title !== word);
-        todoActivitiesArray = [...filteredTodoActivity];
+        displayDefaultText(parent, document.querySelector('.completed_default_paragraph'))
 
-        // delete element from the DOM
-        if (parent.closest('section').children.length < 2) {
-            document.querySelector('.ongoing_default_paragraph').classList.remove('hidden');
-        }
-
-        parent.remove();
+        deleteActivity(parent);
         return;
     }
 
-    // completed status functionality - SPECIAL CASE()
     if (e.target.closest('.todo_activity_completed')) {
-        const word = parent.querySelector('.activity_title').textContent;
-
-        const html = 
-        `
-            <div class="activity_container">
-                <p class="activity_title">${word}</p>
-                <button class="todo_activity_completed">
-                    <img src="./assets/check.svg" alt="check svg icon">
-                </button>
-                <button class="todo_activity_delete">
-                    <img src="./assets/delete.svg" alt="delete svg icon">
-                </button>
-                <button class="todo_activity_edit"></button>
-            </div>
-        `;
-        document.querySelector('.completed_default_paragraph').classList.add('hidden');
+        const id = +parent.dataset.key;
+        const selectedActivity = todoActivitiesArray.find(activity => activity.id === id);
         
-        renderHTML(document.querySelector('.completed_todo_activities'), 'beforeend', html);
+        hideElement('.completed_default_paragraph');
+        
+        const completedActivitiesContainer = document.querySelector('.completed_todo_activities > section');
+        
+        // unique scenario
+        renderHTML(completedActivitiesContainer, 'beforeend', completedActivityMarkup(selectedActivity));
+        // renderHTML(completedActivitiesContainer, 'beforeend', activityMarkup(selectedActivity));
 
-        if (parent.closest('section').children.length < 2) {
-            document.querySelector('.ongoing_default_paragraph').classList.remove('hidden');
-        }
-
-        e.target.closest('.activity_container').remove();
+        /**removing activity from ongoing */
+        displayDefaultText(parent, document.querySelector('.ongoing_default_paragraph'));
+            
+        deleteActivity(parent);
     }
 
     // update / edit existing todo activity
@@ -362,6 +345,74 @@ const activityMarkup = function(activity) {
             </div>
         `;
     return html;
+}
+
+// const aActivityMarkup = function(activity, completed=false) {
+//     const html = 
+//         `
+//             <div class="activity_container" data-key=${activity.id}>
+//                 <div class="display_flex">
+
+//                     <p class="activity_title">${activity.title}</p>
+//                     <p class="activity_duration">${activity.time}</p>
+//                 </div>
+//                 <div class="display_flex">
+//                     ${completed && <button class="todo_activity_completed">
+//                         <img src="./assets/check.svg" alt="check svg icon" />
+//                     </button>}
+//                     <button class="todo_activity_delete">
+//                         <img src="./assets/delete.svg" alt="delete svg icon">
+//                     </button>
+//                     <button class="todo_activity_edit">
+//                         <img src="./assets/edit.svg" alt="delete svg icon">
+//                     </button>
+//                 </div>
+//                 <p class="activity_description hidden">${activity.description}</p>
+//             </div>
+//         `;
+//     return html;
+// }
+
+
+const completedActivityMarkup = function(activity) {
+    const html = 
+        `
+            <div class="activity_container" data-key=${activity.id}>
+                <div class="display_flex">
+                    <p class="activity_title">${activity.title}</p>
+                    <p class="activity_duration">${activity.time}</p>
+                </div>
+                <div class="display_flex">
+                    <button class="todo_activity_delete">
+                        <img src="./assets/delete.svg" alt="delete svg icon">
+                    </button>
+                </div>
+                <p class="activity_description hidden">${activity.description}</p>
+            </div>
+        `;
+    return html;
+}
+
+const deleteActivity = function(selector) {
+    const word = selector.querySelector('.activity_title').textContent;
+
+    const filteredTodoActivity = todoActivitiesArray.filter(activity => activity.title !== word);
+    // delete element from array
+        todoActivitiesArray = [...filteredTodoActivity];
+        
+        // delete element from the DOM
+        selector.remove();
+}
+
+const displayDefaultText = function(parentSelector, childSelector) {
+    if (parentSelector.closest('section').children.length < 2) {
+        childSelector.classList.remove('hidden');
+    }
+    return;
+}
+
+const hideElement = function(selectorClassName) {
+    document.querySelector(selectorClassName).classList.add('hidden');
 }
 
 
