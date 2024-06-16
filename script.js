@@ -110,11 +110,11 @@ main.addEventListener('click', function(e) {
     const parent = e.target.closest('.activity_container');
     // delete functionality
     if (e.target.closest('.todo_activity_delete')) {
-        const word = parent.querySelector('.todo_activity_title').textContent;
+        const word = parent.querySelector('.activity_title').textContent;
 
         // removing element from the array
-        const arr = todoActivitiesArray.filter(activity => activity.title !== word);
-        todoActivitiesArray = [...arr];
+        const filteredTodoActivity = todoActivitiesArray.filter(activity => activity.title !== word);
+        todoActivitiesArray = [...filteredTodoActivity];
 
         // delete element from the DOM
         if (parent.closest('section').children.length < 2) {
@@ -125,14 +125,14 @@ main.addEventListener('click', function(e) {
         return;
     }
 
-    // completed status functionality
+    // completed status functionality - SPECIAL CASE()
     if (e.target.closest('.todo_activity_completed')) {
-        const word = parent.querySelector('.todo_activity_title').textContent;
+        const word = parent.querySelector('.activity_title').textContent;
 
         const html = 
         `
             <div class="activity_container">
-                <p class="todo_activity_title">${word}</p>
+                <p class="activity_title">${word}</p>
                 <button class="todo_activity_completed">
                     <img src="./assets/check.svg" alt="check svg icon">
                 </button>
@@ -189,7 +189,7 @@ main.addEventListener('click', function(e) {
     
     }
 
-    // console.log(e.target);
+    // when the update button is clicked
     if (e.target.classList.contains('form_update-btn')) {
         e.preventDefault();
 
@@ -200,8 +200,17 @@ main.addEventListener('click', function(e) {
         const data = {};
         data['title'] = title.value;
         data['description'] = description.value;
-        data['time'] = calcDueDate(time.value);
+        data['time'] = calcDueDate(time.value); // TODO: CORRECT THIS FUNCTIONALITY 
 
+        // UPDATING THE UI
+        document.querySelector('.activity_title').textContent = title.value;
+        // document.querySelector('.activity_duration').textContent = description.value;
+        document.querySelector('.activity_description').textContent = description.value;
+
+        // console.log(<p class="todo_activity_title">gaming</p>)
+        console.log(document.querySelector('.activity_title'), document.querySelector('.todo_activity_duration'))
+
+        // UPDATING THE ARRAY DS
         const activity = todoActivitiesArray.find(element => element.id === Number(todoActivityId))
         const index = todoActivitiesArray.findIndex(element => element.id === +todoActivityId);
         
@@ -429,8 +438,9 @@ const activityMarkup = function(activity) {
         `
             <div class="activity_container" data-key=${activity.id}>
                 <div class="display_flex">
-                    <p class="todo_activity_title">${activity.title}</p>
-                    <p class="todo_activity_duration">${activity.time}</p>
+
+                    <p class="activity_title">${activity.title}</p>
+                    <p class="activity_duration">${activity.time}</p>
                 </div>
                 <div class="display_flex">
                     <button class="todo_activity_completed">
@@ -443,7 +453,7 @@ const activityMarkup = function(activity) {
                         <img src="./assets/edit.svg" alt="delete svg icon">
                     </button>
                 </div>
-                <p class="todo_activity_description hidden">${activity.description}</p>
+                <p class="activity_description hidden">${activity.description}</p>
             </div>
         `;
     return html;
