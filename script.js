@@ -10,6 +10,7 @@ const todoForm = document.querySelector('.todo_activity_form');
 
 
 let todoActivitiesArray = [];
+let todoActivityId;
 
 // setting a min date
 /**setting min date
@@ -28,22 +29,23 @@ let todoActivitiesArray = [];
 // displaying todo form to start creating a todo activity
 displayTodoFormBtn.addEventListener('click', function() {
     // display form
-    const htmlMarkup = 
-    `
-        <section class="form_container">
-            <form class="todo_activity_form">
-                <div class="todo_activity_title">
-                    <input type="text" name="title" placeholder="Enter your activity title">
-                </div>
-                <div class="todo_activity_description">
-                    <input type="text" name="description" placeholder="Enter a description for your activity">
-                </div>
-                <input type="datetime-local" name="time" id="todo_activity_time-elapsed">
-                <button class="form_activity_create-btn">Create activity</button>
-            </form>
-        </section>
-    `;
-    renderHTML(main, 'afterbegin', htmlMarkup);
+    // const htmlMarkup = 
+    // `
+    //     <section class="form_container">
+    //         <form class="todo_activity_form">
+    //             <div class="todo_activity_title">
+    //                 <input type="text" name="title" placeholder="Enter your activity title">
+    //             </div>
+    //             <div class="todo_activity_description">
+    //                 <input type="text" name="description" placeholder="Enter a description for your activity">
+    //             </div>
+    //             <input type="datetime-local" name="time" id="todo_activity_time-elapsed">
+    //             <button class="form_activity_create-btn">Create activity</button>
+    //         </form>
+    //     </section>
+    // `;
+    // renderHTML(main, 'afterbegin', htmlMarkup);
+    renderHTML(main, 'afterbegin', formMarkup());
 
     const todoForm = document.querySelector('.todo_activity_form');
     todoForm.addEventListener('submit', function(e) {
@@ -67,31 +69,32 @@ displayTodoFormBtn.addEventListener('click', function() {
         
         todoForm.parentElement.remove();
 
-        const html = 
-        `
-            <div class="activity_container" data-key=${activity.id}>
-                <div class="display_flex">
-                    <p class="todo_activity_title">${activity.title}</p>
-                    <p class="todo_activity_duration">${activity.time}</p>
-                </div>
-                <div class="display_flex">
-                    <button class="todo_activity_completed">
-                        <img src="./assets/check.svg" alt="check svg icon">
-                    </button>
-                    <button class="todo_activity_delete">
-                        <img src="./assets/delete.svg" alt="delete svg icon">
-                    </button>
-                    <button class="todo_activity_edit">
-                        <img src="./assets/edit.svg" alt="delete svg icon">
-                    </button>
-                </div>
-                <p class="todo_activity_description hidden">${activity.description}</p>
-            </div>
-        `;
-
+        // const html = 
+        // `
+        //     <div class="activity_container" data-key=${activity.id}>
+        //         <div class="display_flex">
+        //             <p class="todo_activity_title">${activity.title}</p>
+        //             <p class="todo_activity_duration">${activity.time}</p>
+        //         </div>
+        //         <div class="display_flex">
+        //             <button class="todo_activity_completed">
+        //                 <img src="./assets/check.svg" alt="check svg icon">
+        //             </button>
+        //             <button class="todo_activity_delete">
+        //                 <img src="./assets/delete.svg" alt="delete svg icon">
+        //             </button>
+        //             <button class="todo_activity_edit">
+        //                 <img src="./assets/edit.svg" alt="delete svg icon">
+        //             </button>
+        //         </div>
+        //         <p class="todo_activity_description hidden">${activity.description}</p>
+        //     </div>
+        // `;
+    
 
         document.querySelector('.ongoing_default_paragraph').classList.add('hidden');
-        renderHTML(ongoingTodoActivitiesContainer, 'beforeend', html)
+        // renderHTML(ongoingTodoActivitiesContainer, 'beforeend', html)
+        renderHTML(ongoingTodoActivitiesContainer, 'beforeend', activityMarkup(activity))
     })
 
 })
@@ -155,39 +158,59 @@ main.addEventListener('click', function(e) {
         e.preventDefault();
 
         // getting todo id
-        const todoId = e.target.closest('.activity_container').dataset.key;
+        todoActivityId = e.target.closest('.activity_container').dataset.key;
         
         // find element by id in array
-        const todoActivity = todoActivitiesArray.find(element => element.id === +todoId);
+        const todoActivity = todoActivitiesArray.find(element => element.id === +todoActivityId);
 
         const {title, description, time} = todoActivity;
         const date = convertDaysToDate(time);
 
 
-        const htmlMarkup = 
-    `
-        <section class="form_container">
-            <form class="todo_activity_form">
-                <div class="todo_activity_title">
-                    <input type="text" name="title" value="${title}" placeholder="Enter your activity title">
-                </div>
-                <div class="todo_activity_description">
-                    <input type="text" name="description" value="${description}" placeholder="Enter a description for your activity">
-                </div>
-                <input type="datetime-local" name="time" value="${date}" id="todo_activity_time-elapsed">
-                <button class="form_update-btn">Update activity</button>
-            </form>
-        </section>
-    `;
-    renderHTML(main, 'afterbegin', htmlMarkup);
+        // const htmlMarkup = 
+    // `
+    //     <section class="form_container">
+    //         <form class="todo_activity_form">
+    //             <div class="todo_activity_title">
+    //                 <input type="text" name="title" value="${title}" placeholder="Enter your activity title">
+    //             </div>
+    //             <div class="todo_activity_description">
+    //                 <input type="text" name="description" value="${description}" placeholder="Enter a description for your activity">
+    //             </div>
+    //             <input type="datetime-local" name="time" value="${date}" id="todo_activity_time-elapsed">
+    //             <button class="form_update-btn">Update activity</button>
+    //         </form>
+    //     </section>
+    // `;
+    renderHTML(main, 'afterbegin', formMarkup(title, description, date, true));
+    // renderHTML(main, 'afterbegin', htmlMarkup);
 
     
     
     }
 
-    console.log(e.target);
+    // console.log(e.target);
     if (e.target.classList.contains('form_update-btn')) {
         e.preventDefault();
+
+        const title = document.querySelector('input[name="title"]');
+        const description = document.querySelector('input[name="description"]');
+        const time = document.querySelector('input[name="time"]');
+
+        const data = {};
+        data['title'] = title.value;
+        data['description'] = description.value;
+        data['time'] = calcDueDate(time.value);
+
+        const activity = todoActivitiesArray.find(element => element.id === Number(todoActivityId))
+        const index = todoActivitiesArray.findIndex(element => element.id === +todoActivityId);
+        
+        const updateActivity = {
+            ...activity,
+            ...data,
+        };
+
+        todoActivitiesArray.splice(index, 1, updateActivity)
         
         e.target.closest('.form_container').remove();
     }
@@ -223,7 +246,8 @@ main.addEventListener('click', function(e) {
                     <p class="todo_activity_description hidden">${element.description}</p>
                 </div>
             `;
-                renderHTML(ongoingTodoActivitiesContainer, 'beforeend', html);
+            // renderHTML(ongoingTodoActivitiesContainer, 'beforeend', html);
+                renderHTML(ongoingTodoActivitiesContainer, 'beforeend', activityMarkup(element));
                 })
                 
         }
@@ -358,6 +382,73 @@ const generateId = (function() {
 }) ();
 // console.log('login genId: ', generateId()); 
 // console.log('login genId: ', generateId()); 
-// console.log('login genId: ', generateId());   
+// console.log('login genId: ', generateId()); 
+
+
+// Todo Activity markup
+const formMarkup = function(title='', description='', date='', update=false) {
+    const htmlMarkup = 
+    `
+        <section class="form_container">
+            <form class="todo_activity_form">
+                <div class="todo_activity_title">
+                    <input type="text" name="title" value="${title}" placeholder="Enter your activity title">
+                </div>
+                <div class="todo_activity_description">
+                    <input type="text" name="description" value="${description}" placeholder="Enter a description for your activity">
+                </div>
+                <input type="datetime-local" name="time" value="${date}" id="todo_activity_time-elapsed">
+                ${update ? '<button class="form_update-btn">Update activity</button>' : '<button class="form_activity_create-btn">Create activity</button>' }
+            </form>
+        </section>
+    `;
+    return htmlMarkup;
+}
+
+// const formMarkup = function() {
+//     const htmlMarkup = 
+//     `
+//         <section class="form_container">
+//             <form class="todo_activity_form">
+//                 <div class="todo_activity_title">
+//                     <input type="text" name="title" placeholder="Enter your activity title">
+//                 </div>
+//                 <div class="todo_activity_description">
+//                     <input type="text" name="description" placeholder="Enter a description for your activity">
+//                 </div>
+//                 <input type="datetime-local" name="time" id="todo_activity_time-elapsed">
+//                 <button class="form_activity_create-btn">Create activity</button>
+//             </form>
+//         </section>
+//     `;
+//     return htmlMarkup;
+// }
+
+const activityMarkup = function(activity) {
+    const html = 
+        `
+            <div class="activity_container" data-key=${activity.id}>
+                <div class="display_flex">
+                    <p class="todo_activity_title">${activity.title}</p>
+                    <p class="todo_activity_duration">${activity.time}</p>
+                </div>
+                <div class="display_flex">
+                    <button class="todo_activity_completed">
+                        <img src="./assets/check.svg" alt="check svg icon">
+                    </button>
+                    <button class="todo_activity_delete">
+                        <img src="./assets/delete.svg" alt="delete svg icon">
+                    </button>
+                    <button class="todo_activity_edit">
+                        <img src="./assets/edit.svg" alt="delete svg icon">
+                    </button>
+                </div>
+                <p class="todo_activity_description hidden">${activity.description}</p>
+            </div>
+        `;
+    return html;
+}
+
+
 
         
