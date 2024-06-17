@@ -78,6 +78,7 @@ main.addEventListener('click', function(e) {
         return;
     }
 
+    // completed todo activities
     if (e.target.closest('.todo_activity_completed')) {
         const id = +parent.dataset.key;
         const selectedActivity = todoActivitiesArray.find(activity => activity.id === id);
@@ -111,8 +112,6 @@ main.addEventListener('click', function(e) {
         
     renderHTML(main, 'afterbegin', formMarkup(title, description, date, true));
 
-    
-    
     }
 
     // when the update button is clicked

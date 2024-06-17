@@ -160,6 +160,46 @@ header > button {
 } */
 
 
+/* Application interactions / feedback */
+.feedback {
+    width: min(100%, 300px);
+    height: 50px;
+    position: absolute;
+    top: 0;
+    
+    display: flex;
+    padding: 1rem;
+    
+    
+    border-radius: 0 0 5px 5px;
+    background-color: #003;
+
+}
+.alert {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+.alert div {
+    width: 30px;
+}
+.successful,
+.failed {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+}
+.successful {
+    color: #0f0;
+}
+.failed {
+    color: #f00;
+
+}
+
+
 
 /* SPECIAL CLASSES */
 .hidden {
@@ -173,6 +213,17 @@ header > button {
     display: flex;
     gap: 5px;
 }
+.hide_alert {
+    top: -50px;
+    transition: all 800ms ease-in-out;
+}
+
+
+
+
+/* ANIMATIONS  */
+
+
 
 /* GENERAL DEFAULT STYLES */
 button {
