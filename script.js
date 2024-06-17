@@ -166,18 +166,40 @@ main.addEventListener('click', function(e) {
 
     // sorting functionality
     if (e.currentTarget.querySelector('.sorting-btn')) {
-        e.target.closest('.sorting-btn')?.nextElementSibling.classList.toggle('hidden');
-        e.target.closest('.sorting-btn')?.classList.toggle('active');
-
+        
+        // e.target.closest('.sorting-btn')?.nextElementSibling.classList.toggle('hidden');
+        e.target.closest('.sorting-btn')?.nextElementSibling.classList.remove('hidden');
+        e.target.closest('.sorting-btn')?.classList.add('active');
+        
         
         if (e.target.classList.contains('ascending-order')) {
-            sortElements(todoActivitiesArray, 'time').forEach(element => {
-                main.querySelector('.activity_container').remove()
+            // e.target.closest('.sort_menu').classList.add('hidden');
+            
+            // sortElements(todoActivitiesArray, 'time').forEach(element => {
+            //     main.querySelector('.activity_container').remove()
                 
-                renderHTML(ongoingTodoActivitiesContainer, 'beforeend', activityMarkup(element));
-                })
+            //     renderHTML(ongoingTodoActivitiesContainer, 'beforeend', activityMarkup(element));
+            //     });
+            //     return;
+
+                sortOrder(e);
                 
         }
+
+        if (e.target.classList.contains('descending-order')) {
+            // console.log('descending called')
+            // e.target.closest('.sorting-btn')?.nextElementSibling.classList.add('hidden');
+            // sortElements(todoActivitiesArray, 'time', false).forEach(element => {
+            //     main.querySelector('.activity_container').remove()
+                
+            //     renderHTML(ongoingTodoActivitiesContainer, 'beforeend', activityMarkup(element));
+            //     });
+            //     return;
+
+            sortOrder(e, false);
+                
+        }
+        
     }
 
 
@@ -281,6 +303,15 @@ const sortElements = function(array, property, ascending = true) {
             return (aValue < bValue) ? 1 : -1;
         }
     });
+}
+const sortOrder = function(e, ascending=true) {
+    e.target.closest('.sort_menu').classList.add('hidden');
+    sortElements(todoActivitiesArray, 'time', ascending).forEach(element => {
+        main.querySelector('.activity_container').remove()
+        
+        renderHTML(ongoingTodoActivitiesContainer, 'beforeend', activityMarkup(element));
+        });
+        return;
 }
 
 // generating id
