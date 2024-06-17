@@ -40,7 +40,10 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0.5rem;
+    
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
 }
 .create_todo_activity_btn img {
     width: 40px;
@@ -49,6 +52,7 @@ main {
 .create_todo_activity_btn p {
     font-size: 1.4rem;
     padding-top: 0.3rem;
+    margin-right: .5rem;
 }
 
 /* TODO ACTIVITY FORM STYLES */
@@ -100,24 +104,29 @@ form div input {
 
 /* TODO ACTIVITY CONTAINER */
 .todo_activity_main_container {
-    padding-top: 5rem;
     display: flex;
     justify-content: center;
     gap: 80px;
+    flex-wrap: wrap;
+
+    padding-top: 5rem;
+    height: 100%;
 }
 
 /* TODO ACTIVITY CONTAINER */
-.ongoing_todo_activities,
+.ongoing_todo_activities, 
 .completed_todo_activities {
     width: min(100%, 400px);
-    /* height: min(fit-content, 60dvh); */
-    height: fit-content;
+    height: 5rem;
+    max-height: 500px;
+    position: relative;
 
-    border: 1px solid;
+    /* border: 1px solid; */
     border-radius: 5px;
-
     background: var(--secondary-color);
-    /* overflow: hidden; */
+    overflow-y: scroll;
+    scrollbar-width: none;
+
 }
 header,
 .activity_container {
@@ -127,8 +136,10 @@ header,
     align-items: center;
 }
 header {
+    position: absolute;
+    width: 100%;
     background-color: var(--primary-color-dark);
-    position: relative;
+    border-radius: 5px 5px 0 0;
 }
 .activity_container button,
 header > button {
@@ -153,7 +164,12 @@ header > button {
 }
 .sort_menu p:first-child {
     margin-bottom: .5rem;
-
+}
+.completed_default_paragraph,
+.ongoing_default_paragraph,
+.activity_container {
+    margin-top: 3rem;
+    font-size: .9rem;
 }
 /* .ongoing_todo_activities {
     position: relative;

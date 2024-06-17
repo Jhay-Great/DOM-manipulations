@@ -83,7 +83,10 @@ main.addEventListener('click', function(e) {
     if (e.target.closest('.todo_activity_delete')) {
         displayDefaultText(parent, document.querySelector('.ongoing_default_paragraph'));
 
-        displayDefaultText(parent, document.querySelector('.completed_default_paragraph'))
+        // if (e.target.closest('.completed_todo_activities').querySelector('section') < 1) {
+        //     console.log('empty')
+        // }
+        // displayDefaultText(parent, document.querySelector('.completed_default_paragraph'))
 
         deleteActivity(parent);
         return;
@@ -169,7 +172,6 @@ main.addEventListener('click', function(e) {
         const sortBtn = e.target.closest('.sorting-btn');
         const isSorting = sortBtn?.classList.contains('active');
 
-        console.log(isSorting);
         // console.log('before sorting: ', todoActivitiesArray);
 
         if (isSorting) {
@@ -182,7 +184,6 @@ main.addEventListener('click', function(e) {
                 renderHTML(ongoingTodoActivitiesContainer, 'beforeend', activityMarkup(activity));
 
             })
-            console.log(todoActivitiesArray);
             return; 
         }
         
