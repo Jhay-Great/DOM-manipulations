@@ -2,6 +2,8 @@
 // containers
 const main = document.querySelector('main');
 const ongoingTodoActivitiesContainer = document.querySelector('.ongoing_todo_activities > section')
+const alert = document.querySelector('.feedback');
+const body = document.querySelector('body');
 
 // buttons
 const displayTodoFormBtn = document.querySelector('.create_todo_activity_btn')
@@ -38,6 +40,14 @@ displayTodoFormBtn.addEventListener('click', function() {
         const title = todoForm.querySelector('input[name="title"]').value;
         const description = todoForm.querySelector('input[name="description"]').value;
         const time = todoForm.querySelector('input[name="time"]').value;
+        
+        todoForm.parentElement.remove();
+
+        if (!time) {
+            return feedback(false, 'Failed to add activity, kindly add date completion')
+        }
+
+        feedback(true, 'Successfully created activity');
 
         // calculating due date using timestamps
         const dueDate = calcDueDate(time);
@@ -51,9 +61,10 @@ displayTodoFormBtn.addEventListener('click', function() {
         }
         todoActivitiesArray.push(activity);
         
-        todoForm.parentElement.remove();
 
         document.querySelector('.ongoing_default_paragraph').classList.add('hidden');
+
+        // adding created activity to the DOM
         renderHTML(ongoingTodoActivitiesContainer, 'beforeend', activityMarkup(activity))
     })
 
@@ -125,14 +136,19 @@ main.addEventListener('click', function(e) {
         const data = {};
         data['title'] = title.value;
         data['description'] = description.value;
-        data['time'] = calcDueDate(time.value); // TODO: CORRECT THIS FUNCTIONALITY 
+        data['time'] = calcDueDate(time.value); 
 
+        // successful feedback on editing
+        feedback(true, 'Successfully updated activity');
+        
         // UPDATING THE UI
-        document.querySelector('.activity_title').textContent = title.value;
-        // document.querySelector('.activity_duration').textContent = description.value;
-        document.querySelector('.activity_description').textContent = description.value;
-
-        console.log(document.querySelector('.activity_title'), document.querySelector('.todo_activity_duration'))
+        this.querySelectorAll('.activity_container').forEach(activity => {
+            if(activity.dataset.key === todoActivityId) {
+                activity.querySelector('.activity_title').textContent = title.value;
+                activity.querySelector('.activity_duration').textContent = data['time'];
+                activity.querySelector('.activity_description').textContent = description.value;
+            }
+        })
 
         // UPDATING THE ARRAY DS
         const activity = todoActivitiesArray.find(element => element.id === Number(todoActivityId))
@@ -180,17 +196,18 @@ if (todoActivitiesArray.some(element => element.completed === true) === false) {
 
 
 
-
+// HELPER FUNCTIONS
 // normalizing date to midnight
 const normalizeToMidnight = date => new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
 // calculating due date
 const calcDueDate = function (time) {
+    // console.log('time in calc dd: ', time);
+    
     const today = new Date();
     const normalizeToday = normalizeToMidnight(today);
     
     const futureDate = new Date(time);
-    console.log(futureDate)
     const normalizedFutureDate = normalizeToMidnight(futureDate);
     
     const timeDifference = normalizedFutureDate - normalizeToday;
@@ -202,28 +219,34 @@ const calcDueDate = function (time) {
 const convertDaysToDate = function(time) {
     const today = new Date();
     const futureDate = new Date(today.getTime() + time * 24 * 60 * 60 * 1000);
+
+    // console.log('the future date: ', futureDate);
     // return (futureDate.getTime(), futureDate.getFullYear(), futureDate.getMonth());
 
     const year = futureDate.getFullYear();
-    const month = futureDate.getMonth().toString().padStart(2, 0);
+    const month = (futureDate.getMonth() + 1).toString().padStart(2, 0);
     const day = futureDate.getDate().toString().padStart(2, 0);
     const hour = futureDate.getHours().toString().padStart(2, 0);
     const minutes = futureDate.getMinutes().toString().padStart(2, 0);
 
+    // console.log({year, month, day, hour, minutes})
+
+    // console.log(`${year}-${month}-${day}T${hour}:${minutes}`);
     return `${year}-${month}-${day}T${hour}:${minutes}`;
-    console.log(format);
+
+    // console.log(format);
     
     
-    const dateTime = `${futureDate.getFullYear()}-${futureDate.getMonth()}-${futureDate.getDate()}T${futureDate.getHours()}:${futureDate.getMinutes()}`;
-    // console.log(dateTime);
-    return dateTime;
-    // return {
-    //     day: futureDate.getDate(),
-    //     month: futureDate.getMonth() + 1,
-    //     year: futureDate.getFullYear(),
-    //     hour: futureDate.getHours(),
-    //     minutes: futureDate.getMinutes()
-    // }
+    // const dateTime = `${futureDate.getFullYear()}-${futureDate.getMonth()}-${futureDate.getDate()}T${futureDate.getHours()}:${futureDate.getMinutes()}`;
+    // // console.log(dateTime);
+    // return dateTime;
+    // // return {
+    // //     day: futureDate.getDate(),
+    // //     month: futureDate.getMonth() + 1,
+    // //     year: futureDate.getFullYear(),
+    // //     hour: futureDate.getHours(),
+    // //     minutes: futureDate.getMinutes()
+    // // }
 };
 
 // he specified value "1" does not conform to the required format.  The format is "yyyy-MM-ddThh:mm" followed by optional ":ss" or ":ss.SSS".
@@ -412,6 +435,38 @@ const displayDefaultText = function(parentSelector, childSelector) {
 
 const hideElement = function(selectorClassName) {
     document.querySelector(selectorClassName).classList.add('hidden');
+}
+
+const feedback = function(response, comment) {
+    const positive = alert.querySelector('.positive_feedback');
+    const negative = alert.querySelector('.negative_feedback')
+
+    const failedResponse = negative.querySelector('p');
+    const successResponse = positive.querySelector('p');
+
+    alert.classList.remove('hidden');
+    alert.classList.add('hide_alert');
+
+    if (!response) {
+        failedResponse.textContent = comment;
+        negative.classList.remove('hidden');
+        setTimeout(() => {
+            alert.classList.add('hidden');
+            alert.classList.remove('hide_alert');
+            negative.classList.add('hidden');
+        }, 5000);
+        return;
+    }
+    
+    successResponse.textContent = comment;
+    positive.classList.remove('hidden');
+    setTimeout(() => {
+        positive.classList.add('hidden');
+        alert.classList.add('hidden');
+        alert.classList.remove('hide_alert');
+    }, 3200);
+    return;
+
 }
 
 

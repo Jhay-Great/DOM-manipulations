@@ -162,14 +162,13 @@ header > button {
 
 /* Application interactions / feedback */
 .feedback {
-    width: min(100%, 300px);
+    width: fit-content;
     height: 50px;
     position: absolute;
     top: 0;
     
     display: flex;
     padding: 1rem;
-    
     
     border-radius: 0 0 5px 5px;
     background-color: #003;
@@ -216,13 +215,32 @@ header > button {
 .hide_alert {
     top: -50px;
     transition: all 800ms ease-in-out;
+
+    /* animation: alert_popup 2s ease-in-out 1 linear forwards; */
+    animation: alert_popup 3000ms ease-in-out forwards;
 }
 
 
 
 
 /* ANIMATIONS  */
-
+@keyframes alert_popup {
+    0% {
+        top: -50px;
+    }
+    25% {
+        top: 0;
+    }
+    50% {
+        top: 0;
+    }
+    75% {
+        top: 0;
+    }
+    100% {
+        top: -50px;
+    }
+}
 
 
 /* GENERAL DEFAULT STYLES */
