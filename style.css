@@ -47,15 +47,18 @@ h2 {
     border-radius: 5px;
     border: none;
     cursor: pointer;
+
+    font-weight: 600;
+    color: #fff;
+    background-color: #003;
 }
 .create_todo_activity_btn img {
-    width: 40px;
+    width: clamp(24px, 3vw, 40px);
     aspect-ratio: 1;
 }
 .create_todo_activity_btn p {
-    font-size: 1.4rem;
-    padding-top: 0.3rem;
     margin-right: .5rem;
+    font-size: clamp(12px, 3vw, 18px);
 }
 
 /* TODO ACTIVITY FORM STYLES */
@@ -113,8 +116,7 @@ form div input {
     flex-wrap: wrap;
 
     padding-top: 5rem;
-    height: 100%;
-    min-height: 500px;
+    min-height: 94dvh;
 }
 
 /* TODO ACTIVITY CONTAINER */
@@ -172,6 +174,12 @@ header > button {
 .completed_default_paragraph,
 .ongoing_default_paragraph,
 .activity_container {
+    font-size: .9rem;
+    padding-left: 0.5rem;
+}
+.completed_default_paragraph,
+.ongoing_default_paragraph,
+.activity_container:first-child {
     margin-top: 4rem;
     font-size: .9rem;
     padding-left: 0.5rem;
