@@ -352,7 +352,7 @@ const formMarkup = function(title='', description='', date='', update=false) {
                     <input type="text" name="description" value="${description}" placeholder="Enter a description for your activity">
                 </div>
                 <input type="datetime-local" name="time" value="${date}" id="todo_activity_time-elapsed">
-                ${update ? '<button class="form_update-btn">Update activity</button>' : '<button class="form_activity_create-btn">Create activity</button>' }
+                ${update ? '<button class="form_update-btn"><img src="./assets/create_todo.svg" alt=""> <p>Update activity</p></button>' : '<button class="form_activity_create-btn"><img src="./assets/create_todo.svg" alt=""><p>Create activity</p></button>' }
             </form>
         </section>
     `;
